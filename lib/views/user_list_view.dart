@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_training/bloc/users_bloc.dart';
+import 'package:flutter_web_training/locator.dart';
+import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/widgets/user_grid.dart';
 
 import '../models/user.dart';
@@ -19,14 +23,30 @@ class UserListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 700),
-            child: UserList(
-              users: _users,
+    return BlocProvider<UsersBloc>(
+      create: (context) =>
+          UsersBloc(getIt<UsersRepositoryImpl>())..add(FetchUsersEvent()),
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 700),
+              child: BlocBuilder<UsersBloc, UsersState>(
+                builder: (context, state) {
+                  if (state.status == UsersStatus.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state.status == UsersStatus.failure) {
+                    return const Center(
+                      child: Text('Something went wrong!'),
+                    );
+                  } else {
+                    return UserList(users: state.users);
+                  }
+                },
+              )
             ),
           ),
         ),
