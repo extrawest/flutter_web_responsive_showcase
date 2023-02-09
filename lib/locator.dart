@@ -1,8 +1,30 @@
+import 'package:flutter_web_training/network/api_client.dart';
+import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/router/router.dart';
 import 'package:get_it/get_it.dart';
 
+import 'models/config.dart';
+
+const _configFilePath = 'assets/config.json';
+
 final getIt = GetIt.instance;
 
-void setupLocator() {
+Future<void> setupLocator() async {
+  final config = await Config.fromAsset(_configFilePath);
+
+  // Router
   getIt.registerLazySingleton(() => AppRouter());
+
+  // ApiClient
+  getIt.registerLazySingleton(
+    () => ApiClientImpl(
+      apiDomain: config.apiDomain,
+      apiKey: config.apiKey,
+    ),
+  );
+
+  // Repositories
+  getIt.registerLazySingleton(
+    () => UsersRepositoryImpl(apiClient: getIt<ApiClientImpl>()),
+  );
 }
