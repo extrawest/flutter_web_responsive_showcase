@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_training/router/router.dart';
 
 import '../models/user.dart';
 
@@ -12,16 +14,21 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(user.firstName),
-            Text(user.lastName),
-          ],
-        ),
-      )
+    return GestureDetector(
+      onTap: () {
+        context.router.push(UserDetailsRoute(user: user, id: user.id));
+      } ,
+      child: Card(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(user.firstName),
+              Text(user.lastName),
+            ],
+          ),
+        )
+      ),
     );
   }
 }

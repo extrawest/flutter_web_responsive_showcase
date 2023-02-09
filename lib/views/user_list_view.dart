@@ -14,18 +14,20 @@ final _users = List.generate(
   ),
 );
 
-class UsersListView extends StatelessWidget {
-  const UsersListView({Key? key}) : super(key: key);
+class UserListView extends StatelessWidget {
+  const UserListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 700),
-          child: UserList(
-            users: _users,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 700),
+            child: UserList(
+              users: _users,
+            ),
           ),
         ),
       ),
