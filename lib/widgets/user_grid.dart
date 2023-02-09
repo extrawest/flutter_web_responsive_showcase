@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_web_training/widgets/user_card.dart';
+
+import '../models/user.dart';
+
+class UserList extends StatelessWidget {
+  final List<User> users;
+
+  const UserList({
+    required this.users,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width <= 700;
+    return GridView.count(
+      padding: isMobile ? const EdgeInsets.symmetric(horizontal: 32) : null,
+      crossAxisCount: isMobile ? 1 : 2,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      childAspectRatio: 5 / 2,
+      children: users.map((user) => UserCard(user: user)).toList(),
+    );
+  }
+}

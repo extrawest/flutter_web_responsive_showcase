@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_training/responsive_wrapper.dart';
+import 'package:flutter_web_training/views/user_list_view.dart';
 
 class WebApp extends StatelessWidget {
   const WebApp({Key? key}) : super(key: key);
@@ -12,10 +12,7 @@ class WebApp extends StatelessWidget {
       theme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
       home: const Scaffold(
-        body: ResponsiveWrapper(
-          desktop: Placeholder(),
-          mobile: Placeholder(),
-        ),
+        body: UsersListView()
       ),
     );
   }
