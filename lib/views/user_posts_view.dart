@@ -1,9 +1,11 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../locator.dart';
 import '../models/post.dart';
 import '../repository/users_repository.dart';
+import '../widgets/post_grid.dart';
 
 class UserPostsView extends StatelessWidget {
   final String id;
@@ -16,30 +18,27 @@ class UserPostsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: FutureBuilder<List<Post>>(
-          future: getIt<UsersRepositoryImpl>().getPosts(id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final posts = snapshot.data!;
-              return ListView.builder(
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  final post = posts[index];
-                  return ListTile(
-                    title: Text(post.text),
-                    subtitle: Text(post.owner.firstName),
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Text('Error, couldn\'t find user with $id id');
-            } else {
-              return const CircularProgressIndicator();
-            }
+      appBar: AppBar(
+        title: const Text('User Posts'),
+        leading: IconButton(
+          onPressed: () {
+            context.router.pop();
           },
-        )
+          icon: const Icon(Icons.arrow_back),
+        ),
+      ),
+      body: FutureBuilder<List<Post>>(
+        future: getIt<UsersRepositoryImpl>().getPosts(id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final posts = snapshot.data!;
+            return PostGrid(posts: posts);
+          } else if (snapshot.hasError) {
+            return Text('Error, couldn\'t find user with $id id');
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
