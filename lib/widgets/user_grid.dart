@@ -14,8 +14,13 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width <= 700;
+    final horizontalPadding =
+        isMobile ? 32 : MediaQuery.of(context).size.width * 0.2;
     return GridView.count(
-      padding: isMobile ? const EdgeInsets.symmetric(horizontal: 32) : null,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding.toDouble(),
+        vertical: 20,
+      ),
       crossAxisCount: isMobile ? 1 : 2,
       crossAxisSpacing: 20,
       mainAxisSpacing: 20,

@@ -27,26 +27,26 @@ class UserListView extends StatelessWidget {
       create: (context) =>
           UsersBloc(getIt<UsersRepositoryImpl>())..add(FetchUsersEvent()),
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(24),
+        appBar: AppBar(
+          title: const Text('Users'),
+        ),
+        body: SafeArea(
           child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 700),
-              child: BlocBuilder<UsersBloc, UsersState>(
-                builder: (context, state) {
-                  if (state.status == UsersStatus.loading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state.status == UsersStatus.failure) {
-                    return const Center(
-                      child: Text('Something went wrong!'),
-                    );
-                  } else {
-                    return UserList(users: state.users);
-                  }
-                },
-              )
+            child: BlocBuilder<UsersBloc, UsersState>(
+              builder: (context, state) {
+                if (state.status == UsersStatus.loading ||
+                    state.status == UsersStatus.initial) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state.status == UsersStatus.failure) {
+                  return const Center(
+                    child: Text('Something went wrong!'),
+                  );
+                } else {
+                  return UserList(users: state.users);
+                }
+              },
             ),
           ),
         ),
