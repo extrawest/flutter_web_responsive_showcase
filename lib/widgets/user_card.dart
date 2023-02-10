@@ -14,20 +14,48 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.router.push(UserDetailsRoute(id: user.id));
-      } ,
-      child: Card(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(user.firstName),
-              Text(user.lastName),
-            ],
-          ),
-        )
+    return Card(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          context.router.push(UserDetailsRoute(id: user.id));
+        },
+        child: Row(
+          children: [
+            const SizedBox(width: 14),
+            CircleAvatar(
+              radius: 35,
+              backgroundImage: NetworkImage(user.picture),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${user.title} ${user.firstName} ${user.lastName}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'ID: ${user.id}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.keyboard_double_arrow_right),
+            const SizedBox(width: 14),
+          ],
+        ),
       ),
     );
   }

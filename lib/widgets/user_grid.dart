@@ -14,17 +14,17 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width <= 700;
-    final horizontalPadding =
-        isMobile ? 32 : MediaQuery.of(context).size.width * 0.2;
+    final isTablet = MediaQuery.of(context).size.width >= 1100;
+    final tabletPadding = MediaQuery.of(context).size.width * 0.2;
     return GridView.count(
       padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding.toDouble(),
+        horizontal: isTablet ? tabletPadding : 32,
         vertical: 20,
       ),
       crossAxisCount: isMobile ? 1 : 2,
       crossAxisSpacing: 20,
       mainAxisSpacing: 20,
-      childAspectRatio: 5 / 2,
+      childAspectRatio: 3 / 1,
       children: users.map((user) => UserCard(user: user)).toList(),
     );
   }
