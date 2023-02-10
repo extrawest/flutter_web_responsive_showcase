@@ -31,6 +31,12 @@ class UserDetailsView extends StatelessWidget {
                 children: [
                   Text(user.email),
                   Text(user.firstName),
+                  TextButton(
+                    onPressed: () {
+                      context.router.push(UserPostsRoute(id: user.id));
+                    },
+                    child: const Text('Posts'),
+                  ),
                 ],
               );
             }
