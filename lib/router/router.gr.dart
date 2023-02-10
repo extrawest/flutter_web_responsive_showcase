@@ -24,11 +24,24 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     UserDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<UserDetailsRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<UserDetailsRouteArgs>(
+          orElse: () => UserDetailsRouteArgs(id: pathParams.getString('id')));
       return MaterialPageX<dynamic>(
         routeData: routeData,
         child: UserDetailsView(
-          user: args.user,
+          id: args.id,
+          key: args.key,
+        ),
+      );
+    },
+    UserPostsRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<UserPostsRouteArgs>(
+          orElse: () => UserPostsRouteArgs(id: pathParams.getString('id')));
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: UserPostsView(
           id: args.id,
           key: args.key,
         ),
@@ -44,7 +57,11 @@ class _$AppRouter extends RootStackRouter {
         ),
         RouteConfig(
           UserDetailsRoute.name,
-          path: '/:id',
+          path: 'user/:id',
+        ),
+        RouteConfig(
+          UserPostsRoute.name,
+          path: 'user/:id/posts',
         ),
       ];
 }
@@ -65,14 +82,12 @@ class UserListRoute extends PageRouteInfo<void> {
 /// [UserDetailsView]
 class UserDetailsRoute extends PageRouteInfo<UserDetailsRouteArgs> {
   UserDetailsRoute({
-    required User user,
     required String id,
     Key? key,
   }) : super(
           UserDetailsRoute.name,
-          path: '/:id',
+          path: 'user/:id',
           args: UserDetailsRouteArgs(
-            user: user,
             id: id,
             key: key,
           ),
@@ -84,12 +99,9 @@ class UserDetailsRoute extends PageRouteInfo<UserDetailsRouteArgs> {
 
 class UserDetailsRouteArgs {
   const UserDetailsRouteArgs({
-    required this.user,
     required this.id,
     this.key,
   });
-
-  final User user;
 
   final String id;
 
@@ -97,6 +109,41 @@ class UserDetailsRouteArgs {
 
   @override
   String toString() {
-    return 'UserDetailsRouteArgs{user: $user, id: $id, key: $key}';
+    return 'UserDetailsRouteArgs{id: $id, key: $key}';
+  }
+}
+
+/// generated route for
+/// [UserPostsView]
+class UserPostsRoute extends PageRouteInfo<UserPostsRouteArgs> {
+  UserPostsRoute({
+    required String id,
+    Key? key,
+  }) : super(
+          UserPostsRoute.name,
+          path: 'user/:id/posts',
+          args: UserPostsRouteArgs(
+            id: id,
+            key: key,
+          ),
+          rawPathParams: {'id': id},
+        );
+
+  static const String name = 'UserPostsRoute';
+}
+
+class UserPostsRouteArgs {
+  const UserPostsRouteArgs({
+    required this.id,
+    this.key,
+  });
+
+  final String id;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'UserPostsRouteArgs{id: $id, key: $key}';
   }
 }

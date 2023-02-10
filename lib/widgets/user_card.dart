@@ -16,7 +16,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(UserDetailsRoute(user: user, id: user.id));
+        context.router.push(UserDetailsRoute(id: user.id));
       } ,
       child: Card(
         child: Center(

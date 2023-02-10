@@ -5,19 +5,6 @@ import 'package:flutter_web_training/locator.dart';
 import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/widgets/user_grid.dart';
 
-import '../models/user.dart';
-
-final _users = List.generate(
-  100,
-  (index) => User(
-    id: index.toString(),
-    title: 'Mr $index',
-    firstName: 'John $index',
-    lastName: 'Doe $index',
-    picture: '',
-  ),
-);
-
 class UserListView extends StatelessWidget {
   const UserListView({Key? key}) : super(key: key);
 
