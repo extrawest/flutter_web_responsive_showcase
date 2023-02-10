@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_web_training/network/api_client.dart';
 import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/router/router.dart';
@@ -26,5 +27,11 @@ Future<void> setupLocator() async {
   // Repositories
   getIt.registerLazySingleton(
     () => UsersRepositoryImpl(apiClient: getIt<ApiClientImpl>()),
+  );
+
+  //observers
+  final analytics = FirebaseAnalytics.instance;
+  getIt.registerLazySingleton(
+    () => FirebaseAnalyticsObserver(analytics: analytics),
   );
 }
