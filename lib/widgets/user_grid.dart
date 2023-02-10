@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_training/widgets/user_card.dart';
 
 import '../models/user.dart';
+import '../router/router.dart';
 
 class UserList extends StatelessWidget {
   final List<User> users;
@@ -25,7 +27,16 @@ class UserList extends StatelessWidget {
       crossAxisSpacing: 20,
       mainAxisSpacing: 20,
       childAspectRatio: 3 / 1,
-      children: users.map((user) => UserCard(user: user)).toList(),
+      children: users
+          .map(
+            (user) => UserCard(
+              user: user,
+              onTap: () {
+                context.router.push(UserDetailsRoute(id: user.id));
+              },
+            ),
+          )
+          .toList(),
     );
   }
 }
