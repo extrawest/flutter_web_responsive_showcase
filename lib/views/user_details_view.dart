@@ -1,6 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_training/locator.dart';
+import 'package:flutter_web_training/models/user_full.dart';
+import 'package:flutter_web_training/repository/users_repository.dart';
 
 import '../router/router.dart';
 
@@ -17,17 +20,27 @@ class UserDetailsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('User Details View $id'),
-            ElevatedButton(
-              onPressed: () {
-                context.router.push(UserPostsRoute(id: id));
-              },
-              child: const Text('Go to posts'),
-            ),
-          ],
+        child: FutureBuilder<UserFull>(
+          future: getIt<UsersRepositoryImpl>().getFullUser(id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final user = snapshot.data!;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(user.email),
+                  Text(user.firstName),
+                ],
+              );
+            }
+            else if (snapshot.hasError) {
+              return Text('Error, couldn\'t find user with $id id');
+            }
+            else {
+              return const CircularProgressIndicator();
+            }
+          }
         ),
       ),
     );
