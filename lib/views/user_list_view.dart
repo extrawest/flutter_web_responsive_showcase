@@ -1,40 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_web_training/bloc/users_bloc.dart';
 import 'package:flutter_web_training/locator.dart';
 import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/widgets/user_grid.dart';
 
-class UserListView extends StatelessWidget {
+import '../models/user.dart';
+
+class UserListView extends StatefulWidget {
   const UserListView({Key? key}) : super(key: key);
 
   @override
+  State<UserListView> createState() => _UserListViewState();
+}
+
+class _UserListViewState extends State<UserListView> {
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<UsersBloc>(
-      create: (context) =>
-          UsersBloc(getIt<UsersRepositoryImpl>())..add(FetchUsersEvent()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Users'),
-        ),
-        body: SafeArea(
-          child: Center(
-            child: BlocBuilder<UsersBloc, UsersState>(
-              builder: (context, state) {
-                if (state.status == UsersStatus.loading ||
-                    state.status == UsersStatus.initial) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state.status == UsersStatus.failure) {
-                  return const Center(
-                    child: Text('Something went wrong!'),
-                  );
-                } else {
-                  return UserList(users: state.users);
-                }
-              },
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Users'),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: FutureBuilder<List<User>>(
+            future: getIt<UsersRepositoryImpl>().getUsers(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return UserList(users: snapshot.data!);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator();
+            },
           ),
         ),
       ),
