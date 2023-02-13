@@ -1,5 +1,6 @@
 import 'package:flutter_web_training/models/post.dart';
 import 'package:flutter_web_training/models/user_full.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../models/user.dart';
 import '../network/api_client.dart';
@@ -30,8 +31,11 @@ class UsersRepositoryImpl implements UsersRepository {
           .map((user) => User.fromJson(user))
           .toList();
       return users;
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      await Sentry.captureException(
+        error,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -41,8 +45,11 @@ class UsersRepositoryImpl implements UsersRepository {
     try {
       final response = await apiClient.get('/user/$userID');
       return UserFull.fromJson(response.data);
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      await Sentry.captureException(
+        error,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -60,8 +67,11 @@ class UsersRepositoryImpl implements UsersRepository {
           .map((post) => Post.fromJson(post))
           .toList();
       return posts;
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      await Sentry.captureException(
+        error,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }

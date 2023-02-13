@@ -3,10 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_training/app.dart';
 import 'package:flutter_web_training/firebase_options.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'locator.dart';
+import 'models/config.dart';
 
-void main() async {
+const _configFilePath = 'assets/config.json';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -19,7 +23,17 @@ void main() async {
     DeviceOrientation.landscapeRight,
   ]);
 
-  await setupLocator();
+  final config = await Config.fromAsset(_configFilePath);
 
-  runApp(const WebApp());
+  await setupLocator(
+    apiDomain: config.apiDomain,
+    apiKey: config.apiKey,
+  );
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = config.dsn;
+    },
+    appRunner: () => runApp(const WebApp()),
+  );
 }

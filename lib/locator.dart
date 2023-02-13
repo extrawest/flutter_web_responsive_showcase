@@ -4,14 +4,9 @@ import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/router/router.dart';
 import 'package:get_it/get_it.dart';
 
-import 'models/config.dart';
-
-const _configFilePath = 'assets/config.json';
-
 final getIt = GetIt.instance;
 
-Future<void> setupLocator() async {
-  final config = await Config.fromAsset(_configFilePath);
+Future<void> setupLocator({required String apiDomain, required String apiKey}) async {
 
   // Router
   getIt.registerLazySingleton(() => AppRouter());
@@ -19,8 +14,8 @@ Future<void> setupLocator() async {
   // ApiClient
   getIt.registerLazySingleton(
     () => ApiClientImpl(
-      apiDomain: config.apiDomain,
-      apiKey: config.apiKey,
+      apiDomain: apiDomain,
+      apiKey: apiKey,
     ),
   );
 
