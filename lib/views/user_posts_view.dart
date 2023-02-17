@@ -1,12 +1,8 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../locator.dart';
-import '../models/post.dart';
 import '../providers/users_provider.dart';
-import '../repository/users_repository.dart';
 import '../widgets/post_grid.dart';
 
 class UserPostsView extends StatelessWidget {

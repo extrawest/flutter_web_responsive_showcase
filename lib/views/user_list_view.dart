@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_training/locator.dart';
-import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/widgets/user_grid.dart';
 
-import '../models/user.dart';
 import '../providers/users_provider.dart';
 
 class UserListView extends StatelessWidget {

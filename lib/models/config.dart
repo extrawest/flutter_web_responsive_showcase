@@ -14,9 +14,9 @@ class Config {
   });
 
   factory Config.fromJson(Map<String, dynamic> json) => Config(
-    apiDomain: json["apiDomain"],
-    apiKey: json["apiKey"],
-    dsn: json["dsn"],
+    apiDomain: json['apiDomain'],
+    apiKey: json['apiKey'],
+    dsn: json['dsn'],
   );
 
   static Future<Config> fromAsset(String path) async {

@@ -20,22 +20,22 @@ class Post {
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-    id: json["id"],
-    image: json["image"],
-    likes: json["likes"],
-    tags: List<String>.from(json["tags"].map((x) => x)),
-    text: json["text"],
-    publishDate: DateTime.parse(json["publishDate"]),
-    owner: User.fromJson(json["owner"]),
+    id: json['id'],
+    image: json['image'],
+    likes: json['likes'],
+    tags: List<String>.from(json['tags'].map((x) => x)),
+    text: json['text'],
+    publishDate: DateTime.parse(json['publishDate']),
+    owner: User.fromJson(json['owner']),
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "image": image,
-    "likes": likes,
-    "tags": List<dynamic>.from(tags.map((x) => x)),
-    "text": text,
-    "publishDate": publishDate.toIso8601String(),
-    "owner": owner.toJson(),
+    'id': id,
+    'image': image,
+    'likes': likes,
+    'tags': List<dynamic>.from(tags.map((x) => x)),
+    'text': text,
+    'publishDate': publishDate.toIso8601String(),
+    'owner': owner.toJson(),
   };
 }

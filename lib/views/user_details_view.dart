@@ -1,11 +1,7 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_training/locator.dart';
-import 'package:flutter_web_training/models/user_full.dart';
 import 'package:flutter_web_training/providers/users_provider.dart';
-import 'package:flutter_web_training/repository/users_repository.dart';
 import 'package:flutter_web_training/widgets/user_card.dart';
 import 'package:flutter_web_training/widgets/user_details_card.dart';
 
