@@ -10,18 +10,20 @@ class PostGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width <= 700;
-    final isTablet = MediaQuery.of(context).size.width >= 1100;
-    final tabletPadding = MediaQuery.of(context).size.width * 0.2;
-    return GridView.count(
-      padding: EdgeInsets.symmetric(
-        horizontal: isTablet ? tabletPadding : 32,
-        vertical: 20,
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 800),
+        child: GridView.count(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 20,
+          ),
+          crossAxisCount: 1,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          children: posts.map((post) => PostCard(post: post)).toList(),
+        ),
       ),
-      crossAxisCount: isMobile ? 1 : 2,
-      crossAxisSpacing: 20,
-      mainAxisSpacing: 20,
-      children: posts.map((post) => PostCard(post: post)).toList(),
     );
   }
 }

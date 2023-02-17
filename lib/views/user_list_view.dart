@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_training/widgets/user_grid.dart';
+import 'package:flutter_web_training/views/desktop_screen.dart';
+import 'package:flutter_web_training/views/mobile_screen.dart';
+import 'package:flutter_web_training/views/responsive_view.dart';
 
-import '../providers/users_provider.dart';
 
 class UserListView extends StatelessWidget {
   const UserListView({Key? key}) : super(key: key);
@@ -13,19 +14,9 @@ class UserListView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Users'),
       ),
-      body: SafeArea(
-        child: Center(
-          child: Consumer(
-            builder: (context, ref, child) {
-              final users = ref.watch(usersProvider);
-              return users.when(
-                data: (users) => UserList(users: users),
-                loading: () => const CircularProgressIndicator(),
-                error: (error, stack) => Text(error.toString()),
-              );
-            },
-          )
-        ),
+      body: const ResponsiveView(
+        mobile: MobileScreen(),
+        desktop: DesktopScreen(),
       ),
     );
   }

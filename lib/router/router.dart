@@ -7,23 +7,24 @@ import '../views/user_posts_view.dart';
 
 part 'router.gr.dart';
 
-@MaterialAutoRouter(
+@CustomAutoRouter(
   replaceInRouteName: 'View,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      path: '/',
+      path: 'users/',
       page: UserListView,
       initial: true,
-    ),
-    AutoRoute(
-      path: 'user/:id',
-      page: UserDetailsView,
-    ),
-    AutoRoute(
-      path: 'user/:id/posts',
-      page: UserPostsView,
+      children: [
+        AutoRoute(
+          path: ':id/',
+          page: UserDetailsView,
+        ),
+        AutoRoute(
+          path: ':id/posts',
+          page: UserPostsView,
+        ),
+      ],
     ),
   ],
 )
-
 class AppRouter extends _$AppRouter{}

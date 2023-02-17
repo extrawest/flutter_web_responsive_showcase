@@ -18,33 +18,39 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     UserListRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
+      return CustomPage<dynamic>(
         routeData: routeData,
         child: const UserListView(),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     UserDetailsRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<UserDetailsRouteArgs>(
           orElse: () => UserDetailsRouteArgs(id: pathParams.getString('id')));
-      return MaterialPageX<dynamic>(
+      return CustomPage<dynamic>(
         routeData: routeData,
         child: UserDetailsView(
           id: args.id,
           key: args.key,
         ),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     UserPostsRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<UserPostsRouteArgs>(
           orElse: () => UserPostsRouteArgs(id: pathParams.getString('id')));
-      return MaterialPageX<dynamic>(
+      return CustomPage<dynamic>(
         routeData: routeData,
         child: UserPostsView(
           id: args.id,
           key: args.key,
         ),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };
@@ -52,16 +58,26 @@ class _$AppRouter extends RootStackRouter {
   @override
   List<RouteConfig> get routes => [
         RouteConfig(
-          UserListRoute.name,
+          '/#redirect',
           path: '/',
+          redirectTo: 'users/',
+          fullMatch: true,
         ),
         RouteConfig(
-          UserDetailsRoute.name,
-          path: 'user/:id',
-        ),
-        RouteConfig(
-          UserPostsRoute.name,
-          path: 'user/:id/posts',
+          UserListRoute.name,
+          path: 'users/',
+          children: [
+            RouteConfig(
+              UserDetailsRoute.name,
+              path: ':id/',
+              parent: UserListRoute.name,
+            ),
+            RouteConfig(
+              UserPostsRoute.name,
+              path: ':id/posts',
+              parent: UserListRoute.name,
+            ),
+          ],
         ),
       ];
 }
@@ -69,10 +85,11 @@ class _$AppRouter extends RootStackRouter {
 /// generated route for
 /// [UserListView]
 class UserListRoute extends PageRouteInfo<void> {
-  const UserListRoute()
+  const UserListRoute({List<PageRouteInfo>? children})
       : super(
           UserListRoute.name,
-          path: '/',
+          path: 'users/',
+          initialChildren: children,
         );
 
   static const String name = 'UserListRoute';
@@ -86,7 +103,7 @@ class UserDetailsRoute extends PageRouteInfo<UserDetailsRouteArgs> {
     Key? key,
   }) : super(
           UserDetailsRoute.name,
-          path: 'user/:id',
+          path: ':id/',
           args: UserDetailsRouteArgs(
             id: id,
             key: key,
@@ -121,7 +138,7 @@ class UserPostsRoute extends PageRouteInfo<UserPostsRouteArgs> {
     Key? key,
   }) : super(
           UserPostsRoute.name,
-          path: 'user/:id/posts',
+          path: ':id/posts',
           args: UserPostsRouteArgs(
             id: id,
             key: key,

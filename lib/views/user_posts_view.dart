@@ -16,15 +16,6 @@ class UserPostsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Posts'),
-        leading: IconButton(
-          onPressed: () {
-            context.router.pop();
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-      ),
       body: Consumer(
         builder: (context, ref, child) {
           final posts = ref.watch(userPostsProvider(id));

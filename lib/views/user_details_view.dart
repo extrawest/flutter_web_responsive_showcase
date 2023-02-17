@@ -18,15 +18,6 @@ class UserDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Details'),
-        leading: IconButton(
-          onPressed: () {
-            context.router.pop();
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-      ),
       body: Consumer(
         builder: (context, ref, child) {
           final user = ref.watch(userDetailProvider(id));
@@ -42,6 +33,12 @@ class UserDetailsView extends StatelessWidget {
                   const SizedBox(height: 20),
                   UserDetailCard(user: user),
                   const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      context.router.popForced();
+                    },
+                    child: const Text('Back'),
+                  ),
                   TextButton(
                     onPressed: () {
                       context.router.push(UserPostsRoute(id: user.id));
