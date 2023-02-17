@@ -5,14 +5,9 @@ import 'package:flutter_web_training/widgets/user_grid.dart';
 
 import '../models/user.dart';
 
-class UserListView extends StatefulWidget {
+class UserListView extends StatelessWidget {
   const UserListView({Key? key}) : super(key: key);
 
-  @override
-  State<UserListView> createState() => _UserListViewState();
-}
-
-class _UserListViewState extends State<UserListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
