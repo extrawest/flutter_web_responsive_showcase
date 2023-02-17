@@ -1,9 +1,11 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../locator.dart';
 import '../models/post.dart';
+import '../providers/users_provider.dart';
 import '../repository/users_repository.dart';
 import '../widgets/post_grid.dart';
 
@@ -27,17 +29,14 @@ class UserPostsView extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: FutureBuilder<List<Post>>(
-        future: getIt<UsersRepositoryImpl>().getPosts(id),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final posts = snapshot.data!;
-            return PostGrid(posts: posts);
-          } else if (snapshot.hasError) {
-            return Text('Error, couldn\'t find user with $id id');
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Consumer(
+        builder: (context, ref, child) {
+          final posts = ref.watch(userPostsProvider(id));
+          return posts.when(
+            data: (posts) => PostGrid(posts: posts),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stack) => Center(child: Text(error.toString())),
+          );
         },
       ),
     );

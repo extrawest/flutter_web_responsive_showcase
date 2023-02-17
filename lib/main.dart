@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_training/app.dart';
 import 'package:flutter_web_training/firebase_options.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -34,6 +35,6 @@ Future<void> main() async {
     (options) {
       options.dsn = config.dsn;
     },
-    appRunner: () => runApp(const WebApp()),
+    appRunner: () => runApp(const ProviderScope(child: WebApp())),
   );
 }
