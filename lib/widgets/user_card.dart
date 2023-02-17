@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: onTap?.call,
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Row(
