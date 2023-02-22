@@ -1,4 +1,4 @@
-# Flutter Web Training 🌐
+# Flutter Web Responsive UI Showcase 🌐
 
 [![Codemagic build status](https://api.codemagic.io/apps/63ea1ecf46f7d12ff5711b7b/63ea1ecf46f7d12ff5711b7a/status_badge.svg)](https://codemagic.io/apps/63ea1ecf46f7d12ff5711b7b/63ea1ecf46f7d12ff5711b7a/latest_build)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)]()
@@ -6,7 +6,7 @@
 ![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)
 [![View DEMO](https://img.shields.io/badge/VIEW-DEMO-lightgreen.svg)](https://flutter-web-training-om.web.app/)
 
-This project is a part of the Flutter Web training
+This project is a part of the Flutter Web Responsive UI Showcase
 The main goal of the project is to demonstrate the core functionality of the Flutter Web
 
 ## Project info
