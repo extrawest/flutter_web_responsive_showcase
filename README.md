@@ -24,11 +24,11 @@ The main goal of the project is to demonstrate the core functionality of the Flu
 ## How to run
 - Clone the project
 ```shell
-$ git clone https://gitlab.extrawest.com/i-training/flutter/oleksii.melnychenko_flutter_web_training.git your_project_name
+$ git clone https://github.com/extrawest/flutter_web_responsive_showcase.git
 ```
 - Go to the project folder
 ```shell
-$ cd your_project_name
+$ cd flutter_web_responsive_showcase
 ```
 - Install dependencies
 ```shell
