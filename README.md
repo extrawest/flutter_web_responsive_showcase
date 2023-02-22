@@ -21,6 +21,9 @@ The main goal of the project is to demonstrate the core functionality of the Flu
 ## Demo
 [Web page](https://flutter-web-training-om.web.app/#/) which showcases the core functionality of the app with all screens developed yet.
 
+https://user-images.githubusercontent.com/42183561/220580932-6ed226ac-32a0-4791-ab30-ebbbf8c49d8c.mp4
+
+
 ## How to run
 - Clone the project
 ```shell
